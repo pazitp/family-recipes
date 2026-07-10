@@ -1,16 +1,12 @@
 // הגדרות החיבור למסד הנתונים (Firebase).
-// כל עוד הערך הוא null האפליקציה רצה במצב הדגמה ושומרת מתכונים רק במכשיר הנוכחי.
-// אחרי הקמת פרויקט Firebase מדביקים כאן את אובייקט ההגדרות:
-//
-// window.FIREBASE_CONFIG = {
-//   apiKey: "...",
-//   authDomain: "....firebaseapp.com",
-//   projectId: "...",
-//   storageBucket: "....appspot.com",
-//   messagingSenderId: "...",
-//   appId: "..."
-// };
-// window.SHARED_EMAIL = "כתובת האימייל של החשבון המשותף";
+// המפתחות האלה מזהים את הפרויקט בלבד — הגישה לנתונים מוגנת בסיסמה (Firebase Auth).
 
-window.FIREBASE_CONFIG = null;
-window.SHARED_EMAIL = null;
+window.FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDt-39XAEA7lxI84nmi_2A1uq1amIQwPJ0",
+  authDomain: "family-recipes-e9d80.firebaseapp.com",
+  projectId: "family-recipes-e9d80",
+  storageBucket: "family-recipes-e9d80.firebasestorage.app",
+  messagingSenderId: "862756721156",
+  appId: "1:862756721156:web:3d99bfba5e02bfff641b51"
+};
+window.SHARED_EMAIL = "pazitalya@recipes.app";
