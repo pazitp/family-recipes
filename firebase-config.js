@@ -9,4 +9,4 @@ window.FIREBASE_CONFIG = {
   messagingSenderId: "862756721156",
   appId: "1:862756721156:web:3d99bfba5e02bfff641b51"
 };
-window.SHARED_EMAIL = "pazitalya@recipes.app";
+window.SHARED_EMAIL = "mishpacha@recipes.app";
