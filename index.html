@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#e07a3f">
+<title>המתכונים שלנו</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- מסך כניסה -->
+<div id="login-screen" class="hidden">
+  <div class="login-box">
+    <div class="login-logo">🍲</div>
+    <h1>המתכונים שלנו</h1>
+    <p>הקלידי את הסיסמה המשפחתית:</p>
+    <form id="login-form">
+      <input type="password" id="login-password" placeholder="סיסמה" autocomplete="current-password">
+      <button type="submit" class="btn btn-primary">כניסה</button>
+    </form>
+    <p id="login-error" class="login-error hidden">הסיסמה לא נכונה, נסי שוב</p>
+  </div>
+</div>
+
+<!-- האפליקציה -->
+<div id="app" class="hidden">
+  <header id="topbar">
+    <a href="#/" id="home-link" title="לרשימת המתכונים">🍲 <span class="app-title">המתכונים שלנו</span></a>
+    <div class="topbar-actions">
+      <a href="#/shop" class="btn btn-ghost" title="רשימת קניות">🛒<span id="shop-count" class="badge hidden"></span></a>
+      <a href="#/new" class="btn btn-primary">+ מתכון חדש</a>
+    </div>
+  </header>
+
+  <div id="demo-banner" class="hidden">
+    מצב הדגמה — המתכונים נשמרים רק במכשיר הזה. חיבור למסד הנתונים המשותף יופעל בהמשך.
+  </div>
+
+  <main id="main"></main>
+</div>
+
+<script src="firebase-config.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

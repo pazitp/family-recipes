@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "recipes",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "http-server", "C:\\Users\\user\\family-recipes", "-p", "8317", "-c-1"],
+      "port": 8317
+    }
+  ]
+}
