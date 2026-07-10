@@ -847,8 +847,11 @@ async function main() {
     try {
       await fb.authMod.signInWithEmailAndPassword(
         fb.auth, window.SHARED_EMAIL, $('#login-password').value);
-    } catch {
-      $('#login-error').classList.remove('hidden');
+    } catch (err) {
+      console.error('Login failed:', err);
+      const el = $('#login-error');
+      el.textContent = 'הסיסמה לא נכונה, נסי שוב (' + (err.code || err.message || err) + ')';
+      el.classList.remove('hidden');
     }
   });
 }
