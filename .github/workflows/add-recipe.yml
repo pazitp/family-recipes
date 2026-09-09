@@ -1,0 +1,60 @@
+# הוספת מתכון לאפליקציה מבחוץ (למשל על ידי קלוד, לבקשת פזית).
+# שתי דרכים להפעלה:
+#   1. ידנית — Actions ‣ add-recipe ‣ Run workflow.
+#   2. פתיחת issue שכותרתו מתחילה ב-"מתכון:" (רק מהחשבון pazitp) — ראו README.
+name: add-recipe
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'שם המתכון'
+        required: true
+        type: string
+      body:
+        description: 'גוף המתכון באותו פורמט כמו ב-issue (ראו README)'
+        required: true
+        type: string
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.user.login == 'pazitp' &&
+       startsWith(github.event.issue.title, 'מתכון:'))
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install firebase-admin@12 --no-save --no-audit --no-fund
+        working-directory: scripts
+      - run: node add-recipe.js
+        working-directory: scripts
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          RECIPE_TITLE: ${{ inputs.title || github.event.issue.title }}
+          RECIPE_BODY: ${{ inputs.body || github.event.issue.body }}
+      - name: תגובה וסגירת ה-issue (הצלחה)
+        if: github.event_name == 'issues' && success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "✔ נוסף לאפליקציה"
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY"
+      - name: תגובה עם קישור ללוג (כישלון)
+        if: github.event_name == 'issues' && failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+            --body "❌ ההוספה נכשלה — [לוג ההרצה]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
